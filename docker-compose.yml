@@ -1,0 +1,28 @@
+web:
+  build: ./
+  container_name: rc.u12
+  net: rc.net
+  extra_hosts:
+    - "dev.rewardcentre:172.50.5.0"
+    - "dev.phpmyadmin:172.50.5.0"
+  volumes:
+  - mysql:/var/lib/mysql
+  mem_limit: 512m
+  memswap_limit: 2000000000
+  domainname: rewardcentre
+  hostname: dev
+  ipc: host
+  mac_address: 02:42:ac:11:65:43
+  privileged: true
+mail:
+  image: mailhog/mailhog
+  container_name: rc.mail
+  domainname: rewardcentre
+  hostname: mail
+  ipc: host
+  mem_limit: 50m
+  memswap_limit: 2000000000
+
+
+
+  
