@@ -1,12 +1,14 @@
 web:
-  build: ./
-  container_name: rc.u12
-  net: rc.net
+  image: icemaze/dbmysql:dev.2018
+  container_name: dev.beaver.test
+  #net: rc.net
+  ports:
+  - "192.168.99.100:80:80"
   extra_hosts:
-    - "dev.rewardcentre:172.50.5.0"
-    - "dev.phpmyadmin:172.50.5.0"
+  - "dev.beaver:192.168.99.100"
   volumes:
-  - mysql:/var/lib/mysql
+  - /mnt/dm-sync/dev/app:/app
+  - /mnt/dm-sync/dev/mysql:/var/lib/mysql
   mem_limit: 512m
   memswap_limit: 2000000000
   domainname: rewardcentre
@@ -14,14 +16,23 @@ web:
   ipc: host
   mac_address: 02:42:ac:11:65:43
   privileged: true
-mail:
-  image: mailhog/mailhog
-  container_name: rc.mail
+rc:
+  image: icemaze/dbmysql:rc.u12
+  container_name: rc.u12.test
   domainname: rewardcentre
-  hostname: mail
+  hostname: rc.dev
   ipc: host
-  mem_limit: 50m
+  ports:
+  - "192.168.99.102:80:80"
+  extra_hosts:
+  - "dev.rc:192.168.99.102"
+  
+  volumes:
+  - /mnt/dm-sync/rc.u12/app:/app
+  - /mnt/dm-sync/rc.u12/mysql:/var/lib/mysql
+  mem_limit: 512m
   memswap_limit: 2000000000
+  privileged: true
 
 
 

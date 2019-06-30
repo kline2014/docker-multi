@@ -1,3 +1,3 @@
-FROM rc.u12
+FROM dev.2018
 
-CMD ["/run.sh"]
+#CMD ["/run.sh"]
